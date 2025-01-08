@@ -17,3 +17,14 @@ footer {
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
 }
+
+.btnCustom {
+  border: 0;
+  background: none;
+  color: var(--primary);
+}
+
+.inlineBlock {
+  display: inline-block;
+  width: auto;
+}

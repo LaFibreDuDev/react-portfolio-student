@@ -1,16 +1,31 @@
-export default function Header() {
+export default function Header({ setCurrentPage }) {
   return (
     <header>
       <nav>
         <ul>
           <li>
-            <a href="/">Accueil</a>
+            <button
+              type="button"
+              className="btnCustom"
+              onClick={() => setCurrentPage("home")}
+            >
+              Accueil
+            </button>
           </li>
           <li>
-            <a href="#projects">Projets</a>
+            {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
+            <a href="#projects" onClick={() => setCurrentPage("home")}>
+              Projets
+            </a>
           </li>
           <li>
-            <a href="#contact">Contact</a>
+            <button
+              type="button"
+              className="btnCustom"
+              onClick={() => setCurrentPage("contact")}
+            >
+              Contact
+            </button>
           </li>
         </ul>
       </nav>
