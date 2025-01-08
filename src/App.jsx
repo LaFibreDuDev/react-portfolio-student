@@ -1,4 +1,6 @@
 import "./App.css";
+import Contact from "./components/Contact/index.jsx";
+import DetailProject from "./components/DetailProject/index.jsx";
 import Footer from "./components/Footer/index.jsx";
 import Header from "./components/Header/index.jsx";
 import Projects from "./components/Projects/index.jsx";
@@ -30,10 +32,19 @@ function App() {
     },
   ];
 
+  // Pour indication
+  // const pages = ["home", "projects", "contact"];
+  const currentPage = "home";
+  const selectedProject = 1;
+
   return (
     <main className="container">
       <Header />
-      <Projects projects={projects} />
+      {currentPage === "home" && <Projects projects={projects} />}
+      {currentPage === "projects" && selectedProject && (
+        <DetailProject project={projects[selectedProject]} />
+      )}
+      {currentPage === "contact" && <Contact />}
       <Footer />
     </main>
   );
