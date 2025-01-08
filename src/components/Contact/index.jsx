@@ -1,17 +1,28 @@
 import { useState } from "react";
 
+import emailjs from "@emailjs/browser";
+import { useRef } from "react";
+
 export default function Contact() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-
   const [sentEmail, setSentEmail] = useState(false);
+  const form = useRef();
 
+  // https://www.emailjs.com/docs/examples/reactjs/
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (name && email && message) {
-      console.log("ton message est bien parti !", name, email, message);
+
+    try {
+      await emailjs.sendForm(
+        "service_oy0iby8",
+        "template_p9s2i9t",
+        form.current,
+        {
+          publicKey: "Wwr5PAmUhBUF67zyt",
+        }
+      );
       setSentEmail(true);
+    } catch (e) {
+      console.error("Une erreur est survenue lors de l'envoi", e);
     }
   };
 
@@ -21,30 +32,24 @@ export default function Contact() {
       {sentEmail ? (
         <p>Votre message a bien été envoyé</p>
       ) : (
-        <form onSubmit={handleSubmit}>
+        <form ref={form} onSubmit={handleSubmit}>
           <input
             type="text"
-            name="name"
+            name="user_name"
             placeholder="Mettez votre nom"
             aria-label="Mettez votre nom"
-            value={name}
-            onChange={(e) => setName(e.currentTarget.value)}
           />
           <input
             type="email"
-            name="email"
+            name="user_email"
             placeholder="Mettez votre email"
             aria-label="Mettez votre email"
-            value={email}
-            onChange={(e) => setEmail(e.currentTarget.value)}
           />
           <textarea
             name="message"
             placeholder="Ecrivez votre message ici"
             aria-label="Ecrivez votre message ici"
             rows={10}
-            value={message}
-            onChange={(e) => setMessage(e.currentTarget.value)}
           />
           <input type="submit" value="Envoyer le formulaire" />
         </form>
