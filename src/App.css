@@ -18,6 +18,10 @@ footer {
   gap: 1rem;
 }
 
+.projects article {
+  margin: 0;
+}
+
 .btnCustom {
   border: 0;
   background: none;
