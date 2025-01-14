@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function ProjectForm(props) {
-  const { projects, setProjects } = props;
+  const { projects, setProjects, setIsOpen } = props;
 
   const [name, setName] = useState("");
   const [image, setImage] = useState("");
@@ -83,6 +83,7 @@ export default function ProjectForm(props) {
     }));
 
     setIsLoading(() => false);
+    setIsOpen(() => false);
   };
 
   const isInvalidField = (field) => {
@@ -91,8 +92,7 @@ export default function ProjectForm(props) {
   };
 
   return (
-    <>
-      <h3>Création d&apos;un nouvel item de portfolio</h3>
+    <div>
       <form method="post" onSubmit={(e) => handleSubmit(e)}>
         <input
           type="text"
@@ -140,6 +140,6 @@ export default function ProjectForm(props) {
           }
         />
       </form>
-    </>
+    </div>
   );
 }
