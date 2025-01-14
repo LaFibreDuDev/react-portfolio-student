@@ -11,9 +11,12 @@ export default function ProjectForm(props) {
   // 0 : une saisie a été faites, mais pas d'erreur de validation
   // 1 : il y a des erreurs
   const [errors, setErrors] = useState({
-    name: -1,
-    image: -1,
-    description: -1,
+    isSubmitted: false,
+    fields: {
+      name: [],
+      image: [],
+      description: [],
+    },
   });
   const [isLoading, setIsLoading] = useState(false);
 
@@ -25,20 +28,33 @@ export default function ProjectForm(props) {
     e.preventDefault();
 
     // réinitialiser les erreurs
-    const newErrors = { name: 0, image: 0, description: 0 };
+    const newErrors = {
+      fields: { name: [], image: [], description: [] },
+      isSubmitted: true,
+    };
     if (name === "") {
-      newErrors.name = 1;
+      newErrors.fields.name.push("Le champs nom est vide !");
     }
     if (image === "") {
-      newErrors.image = 1;
+      newErrors.fields.image.push("Le champs image est vide !");
     }
     if (description === "") {
-      newErrors.description = 1;
+      newErrors.fields.description.push("Le champs description est vide !");
+    }
+    if (name.length <= 3) {
+      newErrors.fields.name.push(
+        "Le champs nom doit comporter minimum 3 caractères !"
+      );
     }
     setErrors(() => newErrors);
 
-    // validation front
-    if (name === "" || image === "" || description === "") {
+    // validation front (on comptabilise les erreurs)
+    if (
+      Object.values(newErrors.fields).reduce(
+        (acc, curr) => acc + curr.length,
+        0
+      ) > 0
+    ) {
       return;
     }
 
@@ -61,14 +77,17 @@ export default function ProjectForm(props) {
     setDescription("");
 
     // On réinitialise complètement les erreurs
-    setErrors(() => ({ name: -1, image: -1, description: -1 }));
+    setErrors(() => ({
+      fields: { name: [], image: [], description: [] },
+      isSubmitted: false,
+    }));
 
     setIsLoading(() => false);
   };
 
-  const isInvalidField = (fieldError) => {
-    if (fieldError === -1) return;
-    return fieldError === 1;
+  const isInvalidField = (field) => {
+    if (!errors.isSubmitted) return;
+    return errors.fields[field].length > 0;
   };
 
   return (
@@ -82,8 +101,12 @@ export default function ProjectForm(props) {
           aria-label="Mettez le nom du projet ici"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          aria-invalid={isInvalidField(errors.name)}
+          aria-invalid={isInvalidField("name")}
+          aria-describedby={isInvalidField("name") && "invalid-helper"}
         />
+        {isInvalidField("name") && (
+          <small id="invalid-helper">{errors.fields.name[0]}</small>
+        )}
         <input
           type="text"
           name="image"
@@ -91,8 +114,12 @@ export default function ProjectForm(props) {
           aria-label="Mettez l'url de votre image ici"
           value={image}
           onChange={(e) => setImage(e.target.value)}
-          aria-invalid={isInvalidField(errors.image)}
+          aria-invalid={isInvalidField("image")}
+          aria-describedby={isInvalidField("image") && "invalid-helper"}
         />
+        {isInvalidField("image") && (
+          <small id="invalid-helper">{errors.fields.image[0]}</small>
+        )}
         <textarea
           name="description"
           placeholder="Mettez la description ici"
@@ -100,8 +127,12 @@ export default function ProjectForm(props) {
           rows={10}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          aria-invalid={isInvalidField(errors.description)}
+          aria-invalid={isInvalidField("description")}
+          aria-describedby={isInvalidField("description") && "invalid-helper"}
         />
+        {isInvalidField("description") && (
+          <small id="invalid-helper">{errors.fields.description[0]}</small>
+        )}
         <input
           type="submit"
           value={
