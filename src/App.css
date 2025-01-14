@@ -5,8 +5,9 @@ footer {
 }
 
 .project-image {
-  max-width: 100%;
-  height: 200px;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
   border-radius: 5px;
   object-fit: cover;
   margin-bottom: 1rem;
@@ -19,8 +20,14 @@ footer {
 }
 
 .projects article {
-  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
+
+.projects article p {
+  flex-grow: 1;
+}
+
 
 .btnCustom {
   border: 0;

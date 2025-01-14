@@ -14,7 +14,6 @@ export default function Project({
       <p>{project.description}</p>
       <button
         type="button"
-        className="btnCustom"
         onClick={() => {
           setCurrentPage("projects");
           setSelectedProject(project.id);
