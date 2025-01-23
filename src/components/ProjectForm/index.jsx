@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { sleep } from "../../utils";
 
 export default function ProjectForm(props) {
   const { projects, setProjects, setIsOpen } = props;
@@ -19,10 +20,6 @@ export default function ProjectForm(props) {
     },
   });
   const [isLoading, setIsLoading] = useState(false);
-
-  const sleep = (ms, value) => {
-    return new Promise((resolve) => setTimeout(resolve, ms, value));
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
