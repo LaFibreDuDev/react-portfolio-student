@@ -1,8 +1,6 @@
-export default function Project({
-  project,
-  setCurrentPage,
-  setSelectedProject,
-}) {
+import { NavLink } from "react-router-dom";
+
+export default function Project({ project }) {
   return (
     <article>
       <img
@@ -12,15 +10,9 @@ export default function Project({
       />
       <h2>{project.name}</h2>
       <p>{project.description}</p>
-      <button
-        type="button"
-        onClick={() => {
-          setCurrentPage("projects");
-          setSelectedProject(project.id);
-        }}
-      >
+      <NavLink to={`/project/${project.id}`}>
         Détail du projet {project.id}
-      </button>
+      </NavLink>
     </article>
   );
 }

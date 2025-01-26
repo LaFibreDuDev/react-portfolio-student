@@ -1,32 +1,37 @@
-export default function Header({ setCurrentPage }) {
+import { NavLink } from "react-router-dom";
+import { useUserStore } from "../../store/index.js";
+
+export default function Header() {
+  const { username } = useUserStore();
+
   return (
     <header>
       <nav>
         <ul>
           <li>
-            <button
-              type="button"
-              className="btnCustom"
-              onClick={() => setCurrentPage("home")}
-            >
-              Accueil
-            </button>
+            <NavLink to="/">Accueil</NavLink>
           </li>
           <li>
-            {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
-            <a href="#projects" onClick={() => setCurrentPage("home")}>
-              Projets
-            </a>
+            <NavLink to="/contact">Contact</NavLink>
           </li>
-          <li>
-            <button
-              type="button"
-              className="btnCustom"
-              onClick={() => setCurrentPage("contact")}
-            >
-              Contact
-            </button>
-          </li>
+        </ul>
+      </nav>
+      <nav>
+        <ul>
+          {username ? (
+            <>
+              <li>
+                <NavLink to="/profile">Bienvenue à toi, {username} !</NavLink>
+              </li>
+              <li>
+                <NavLink to="/logout">Se déconnecter</NavLink>
+              </li>
+            </>
+          ) : (
+            <li>
+              <NavLink to="/login">Login</NavLink>
+            </li>
+          )}
         </ul>
       </nav>
     </header>

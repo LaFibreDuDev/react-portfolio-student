@@ -4,6 +4,11 @@ footer {
   color: white;
 }
 
+header {
+  display: flex;
+  justify-content: space-between;
+}
+
 .project-image {
   width: 100%;
   height: auto;
@@ -38,4 +43,8 @@ footer {
 .inlineBlock {
   display: inline-block;
   width: auto;
+}
+
+a.active {
+  color: white;
 }

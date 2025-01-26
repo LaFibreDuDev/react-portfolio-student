@@ -1,9 +1,10 @@
 import { useState } from "react";
-
 import emailjs from "@emailjs/browser";
 import { useRef } from "react";
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
-export default function Contact() {
+export default function ContactPage() {
   const [sentEmail, setSentEmail] = useState(false);
   const form = useRef();
 
@@ -27,7 +28,8 @@ export default function Contact() {
   };
 
   return (
-    <>
+    <main className="container">
+      <Header />
       <h2>Page de contact</h2>
       {sentEmail ? (
         <p>Votre message a bien été envoyé</p>
@@ -54,6 +56,7 @@ export default function Contact() {
           <input type="submit" value="Envoyer le formulaire" />
         </form>
       )}
-    </>
+      <Footer />
+    </main>
   );
 }
